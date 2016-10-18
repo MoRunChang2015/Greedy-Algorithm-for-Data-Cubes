@@ -46,8 +46,8 @@ bool getArguments(int argc, char* argv[]) {
 }
 
 /**
- * update the cost c from node x (mode = 0)
- * or calculate benefit (mode = 1)
+ * update the cost c from node x (mode = 1)
+ * or calculate benefit (mode = 0)
  */
 int updateNowCost(int x, int c, int mode) {
     int ans = 0;
@@ -80,7 +80,7 @@ void readFromFile() {
     for (i = 1; i <= temp; i++) {
         input >> x >> y;
         addEdge(x, y);
-        isRoot[x] = 1;
+        isRoot[y] = 1;
     }
     // initialization
     for (i = 1; i <= n; i++)
@@ -105,7 +105,7 @@ void greedy() {
         max = -1;
         for (i = 1; i <= n; i++)
             if (isUsed[i] == 0) {
-                temp = updateNowCost(i, cost[i], 1);
+                temp = updateNowCost(i, cost[i], 0);
                 if (temp > max) {
                     max = temp;
                     maxi = i;
@@ -113,7 +113,7 @@ void greedy() {
             }
         isUsed[maxi] = 1;
         cout << " -> " << maxi;
-        updateNowCost(maxi, cost[maxi], 0);
+        updateNowCost(maxi, cost[maxi], 1);
     }
 }
 
