@@ -45,6 +45,26 @@ bool getArguments(int argc, char* argv[]) {
     return true;
 }
 
+/**
+ * update the cost c from node x (mode = 0)
+ * or calculate benefit (mode = 1)
+ */
+int updateNowCost(int x, int c, int mode) {
+    int ans = 0;
+    if (now[x] == -1) {
+        now[x] = c;
+    } else if (now[x] > c) {
+        ans += now[x] - c;
+        now[x] = now[x] + mode * (-now[x] + c);
+    }
+    int i = f[x];
+    while (i != 0) {
+        ans += updateNowCost(e[i].to, c, mode);
+        i = e[i].bro;
+    }
+    return ans;
+}
+
 void readFromFile() {
     string filePath(inputFile);
     ifstream input(filePath);
@@ -56,10 +76,19 @@ void readFromFile() {
     }
     input >> temp;
     m = 0;
-    for (int i = 1; i <= temp; i++) {
+    bool isRoot[1000] = { 0 };
+    for (i = 1; i <= temp; i++) {
         input >> x >> y;
         addEdge(x, y);
+        isRoot[x] = 1;
     }
+    // initialization
+    for (i = 1; i <= n; i++)
+        now[i] = -1;
+    for (i = 1; i <= n; i++)
+        if (isRoot[i] == 0) {
+            updateNowCost(i, cost[i], 0);
+        }
 }
 
 int main(int argc, char* argv[]) {
@@ -68,15 +97,7 @@ int main(int argc, char* argv[]) {
         return 0;
     }
     readFromFile();
-    for (int i = 1; i <= n; i++) {
-        cout << cost[i] << endl;
-        cout << i << " to ";
-        int j = f[i];
-        while (j != 0) {
-            cout << e[j].to ;
-            j = e[j].bro;
-        }
-        cout << endl;
-    }
+    greedy();
+    cout << endl;
     return 0;
 }
