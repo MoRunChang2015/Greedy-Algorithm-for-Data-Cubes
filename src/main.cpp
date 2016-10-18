@@ -119,7 +119,7 @@ void greedy() {
 
 int main(int argc, char* argv[]) {
     if (!getArguments(argc, argv)) {
-        cout << "using -k to set k value and using -f to choose input file" << endl;
+        cout << "using -k to input value k and using -f to choose input file" << endl;
         return 0;
     }
     readFromFile();
