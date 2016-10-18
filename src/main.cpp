@@ -85,10 +85,36 @@ void readFromFile() {
     // initialization
     for (i = 1; i <= n; i++)
         now[i] = -1;
+    bool isFirst = true;
     for (i = 1; i <= n; i++)
         if (isRoot[i] == 0) {
+            if (!isFirst) {
+                cout << " -> ";
+            } else {
+                isFirst = false;
+            }
+            cout << i;
+            isUsed[i] = 1;
             updateNowCost(i, cost[i], 0);
         }
+}
+
+void greedy() {
+    int i, j, max = 0, maxi, temp;
+    while (k--) {
+        max = -1;
+        for (i = 1; i <= n; i++)
+            if (isUsed[i] == 0) {
+                temp = updateNowCost(i, cost[i], 1);
+                if (temp > max) {
+                    max = temp;
+                    maxi = i;
+                }
+            }
+        isUsed[maxi] = 1;
+        cout << " -> " << maxi;
+        updateNowCost(maxi, cost[maxi], 0);
+    }
 }
 
 int main(int argc, char* argv[]) {
