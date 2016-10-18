@@ -4,7 +4,7 @@ CC := g++
 SRCDIR := src
 BUILDDIR := build
 TESTDIR := test
-TARGET := bin/MD5
+TARGET := bin/Greedy
 TARGETDIR := bin
 
 SRCEXT := cpp
