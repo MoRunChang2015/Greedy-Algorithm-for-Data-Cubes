@@ -13,7 +13,7 @@ struct Edge {
 int f[100] = { 0 }; // view's first edge
 int k, n, m;
 char inputFile[100];
-int cost[1000] = { 0 }; // views space space costs
+int cost[1000] = { 0 }; // views space costs
 int now[1000] = { 0 };  // current costs for querying a view
 int isUsed[1000] = { 0 };
 
