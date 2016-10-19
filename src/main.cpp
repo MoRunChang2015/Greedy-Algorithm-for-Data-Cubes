@@ -65,9 +65,11 @@ int updateNowCost(int x, int c, int mode) {
     return ans;
 }
 
-void readFromFile() {
+bool readFromFile() {
     string filePath(inputFile);
     ifstream input(filePath);
+    if (!input.is_open())
+        return false;
     input >> n;
     int i, j, x, y, c, temp;
     for (i = 1; i <= n; i++) {
@@ -97,6 +99,7 @@ void readFromFile() {
             isUsed[i] = 1;
             updateNowCost(i, cost[i], 0);
         }
+    return true;
 }
 
 void greedy() {
@@ -111,6 +114,8 @@ void greedy() {
                     maxi = i;
                 }
             }
+        if (max == -1)
+            break;
         isUsed[maxi] = 1;
         cout << " -> " << maxi;
         updateNowCost(maxi, cost[maxi], 1);
@@ -122,7 +127,10 @@ int main(int argc, char* argv[]) {
         cout << "using -k to input value k and using -f to choose input file" << endl;
         return 0;
     }
-    readFromFile();
+    if (!readFromFile()) {
+        cout << "input file doesn't exist" << endl;
+        return 0;
+    }
     greedy();
     cout << endl;
     return 0;
