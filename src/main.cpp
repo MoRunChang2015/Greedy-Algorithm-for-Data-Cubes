@@ -1,22 +1,21 @@
-#include <iostream>
 #include <algorithm>
-#include <cstring>
-#include <string>
 #include <cstdio>
-#include <sstream>
+#include <cstring>
 #include <fstream>
+#include <iostream>
+#include <sstream>
+#include <string>
 using namespace std;
 
 struct Edge {
     int to, bro;
 } e[10000];
-int f[100] = { 0 }; // view's first edge
+int f[100] = {0};  // view's first edge
 int k, n, m;
 char inputFile[100];
-int cost[1000] = { 0 }; // views space costs
-int now[1000] = { 0 };  // current costs for querying a view
-int isUsed[1000] = { 0 };
-
+int cost[1000] = {0};  // views space costs
+int now[1000] = {0};   // current costs for querying a view
+int isUsed[1000] = {0};
 
 void addEdge(int x, int y) {
     m++;
@@ -68,8 +67,7 @@ int updateNowCost(int x, int c, int mode) {
 bool readFromFile() {
     string filePath(inputFile);
     ifstream input(filePath);
-    if (!input.is_open())
-        return false;
+    if (!input.is_open()) return false;
     input >> n;
     int i, j, x, y, c, temp;
     for (i = 1; i <= n; i++) {
@@ -78,15 +76,14 @@ bool readFromFile() {
     }
     input >> temp;
     m = 0;
-    bool isRoot[1000] = { 0 };
+    bool isRoot[1000] = {0};
     for (i = 1; i <= temp; i++) {
         input >> x >> y;
         addEdge(x, y);
         isRoot[y] = 1;
     }
     // initialization
-    for (i = 1; i <= n; i++)
-        now[i] = -1;
+    for (i = 1; i <= n; i++) now[i] = -1;
     bool isFirst = true;
     for (i = 1; i <= n; i++)
         if (isRoot[i] == 0) {
@@ -114,8 +111,7 @@ void greedy() {
                     maxi = i;
                 }
             }
-        if (max == -1)
-            break;
+        if (max == -1) break;
         isUsed[maxi] = 1;
         cout << " -> " << maxi;
         updateNowCost(maxi, cost[maxi], 1);
@@ -124,7 +120,8 @@ void greedy() {
 
 int main(int argc, char* argv[]) {
     if (!getArguments(argc, argv)) {
-        cout << "using -k to input value k and using -f to choose input file" << endl;
+        cout << "using -k to input value k and using -f to choose input file"
+             << endl;
         return 0;
     }
     if (!readFromFile()) {
