@@ -16,6 +16,7 @@ char inputFile[100];
 int cost[1000] = {0};  // views space costs
 int now[1000] = {0};   // current costs for querying a view
 int isUsed[1000] = {0};
+int isVisit[1000] = {0};
 
 void addEdge(int x, int y) {
     m++;
@@ -49,6 +50,9 @@ bool getArguments(int argc, char* argv[]) {
  * or calculate benefit (mode = 0)
  */
 int updateNowCost(int x, int c, int mode) {
+    if (isVisit[x] == 1)
+        return 0;
+    isVisit[x] = 1;
     int ans = 0;
     if (now[x] == -1) {
         now[x] = c;
@@ -105,6 +109,7 @@ void greedy() {
         max = -1;
         for (i = 1; i <= n; i++)
             if (isUsed[i] == 0) {
+                memset(isVisit, 0, sizeof isVisit);
                 temp = updateNowCost(i, cost[i], 0);
                 if (temp > max) {
                     max = temp;
@@ -114,6 +119,7 @@ void greedy() {
         if (max == -1) break;
         isUsed[maxi] = 1;
         cout << " -> " << maxi;
+        memset(isVisit, 0, sizeof isVisit);
         updateNowCost(maxi, cost[maxi], 1);
     }
 }
