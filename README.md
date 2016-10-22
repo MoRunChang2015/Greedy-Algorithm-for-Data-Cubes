@@ -10,5 +10,3 @@ bin/Greedy -f data/input2.txt -k 3
 bin/Greedy -f data/input3.txt -k 4
 ```
 
-### TODOS
-+ Test Case
