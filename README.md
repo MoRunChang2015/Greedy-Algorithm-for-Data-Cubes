@@ -8,5 +8,6 @@ make
 bin/Greedy -f data/input.txt -k 3
 bin/Greedy -f data/input2.txt -k 3
 bin/Greedy -f data/input3.txt -k 4
+bin/Greedy -f data/input4.txt -k 3
 ```
 
